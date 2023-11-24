@@ -26,7 +26,6 @@ class RegisterController extends Controller
 
         $data =  Http::post('http://laravel-api-uas.test/api/register', $data);
 
-        // $request->session()->flash('success', 'Registration successfull!');
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Registration successfull!');
     }
 }

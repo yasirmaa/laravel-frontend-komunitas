@@ -35,7 +35,7 @@
 <body>
     @include('partials.navbar')
 
-    <div class="container mt-3" style="max-width: 1208px">
+    <div class="container mt-3" style="max-width: 1208px;">
         @yield('container')
     </div>
 

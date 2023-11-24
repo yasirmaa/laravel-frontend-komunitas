@@ -1,10 +1,10 @@
 <!-- ======= Footer ======= -->
-<footer id="footer" class="footer shadow border-top">
+<footer id="footer" class="footer shadow border-top ">
     <div class="container text-dark">
         <div class="row gy-4 ">
             <div class="col-lg-5 col-md-12 footer-info">
-                <a href="/" class="d-flex align-items-center">
-                    <span>Yamacom</span>
+                <a href="/" class="d-flex align-items-center footer-brand">
+                    <span>DJUALYA</span>
                 </a>
                 <p>Platform Interaktif untuk Menemukan Kesepakatan Terbaik. Aktivitas jual beli, mencari produk unik,
                     dan menemukan kesepakatan terbaik dengan kenyamanan dari kenyamanan rumah</p>
@@ -33,7 +33,7 @@
 
     <div class="container mt-4">
         <div class="copyright text-center text-black">
-            &copy; Copyright 2023. <a href="/"><strong>Yamacom.com</strong></a>
+            &copy; Copyright 2023. <a href="/" class="brand"><strong>Yamacom.com</strong></a>
         </div>
     </div>
 </footer>

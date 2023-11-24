@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -18,18 +16,6 @@ class LoginController extends Controller
         ]);
     }
 
-    // public function login(Request $request)
-    // {
-    //     $dataValid =  json_decode(Http::post('http://laravel-api-uas.test/api/login', $request));
-    //     dd($dataValid);
-    //     if ($dataValid->status == 'success') {
-    //         $request->session()->regenerate();
-    //         return redirect()->intended('/');
-    //     }
-
-    //     return back()->with('loginError', 'Login Failed!');
-    // }
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -39,7 +25,16 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+
+            // Panggil endpoint eksternal untuk mendapatkan token setelah otentikasi berhasil
+            $dataValid = json_decode(Http::post('http://laravel-api-uas.test/api/login', $credentials));
+            $token = $dataValid->data->token;
+
+            // Pastikan token diperoleh dari respons yang sesuai
+            if (isset($token)) {
+                $cookie = cookie('token', $token, 60 * 24);
+                return redirect()->intended('/')->withCookie($cookie);
+            }
         }
 
         return back()->with('loginError', 'Login Failed!');
@@ -53,6 +48,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
+        Cookie::queue(Cookie::forget('token'));
         return redirect('/');
     }
 }
